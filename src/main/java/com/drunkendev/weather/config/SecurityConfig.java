@@ -72,8 +72,6 @@ public class SecurityConfig {
                     .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/static").permitAll()
-                    .antMatchers("/sudo", "/sudo_switch").hasRole("ADMIN")
-                    .antMatchers("/sodu_exit").hasRole("PREVIOUS_ADMINISTRATOR")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
