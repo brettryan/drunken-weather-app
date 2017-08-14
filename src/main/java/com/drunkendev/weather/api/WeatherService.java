@@ -32,7 +32,10 @@ public interface WeatherService {
      * @param   cityId
      *          City ID to retrieve conditions for.
      * @return  Currently available conditions.
+     * @throws  WeatherException
+     *          If the underlying implementation was unable to complete the
+     *          request.
      */
-    WeatherCondition getCurrentConditions(long cityId);
+    WeatherCondition getCurrentConditions(long cityId) throws WeatherException;
 
 }
