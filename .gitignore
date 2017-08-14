@@ -24,4 +24,4 @@ target/
 *.swp
 .DS_Store
 src/main/webapp/META-INF/context.xml
-src/main/resources/webapp.user.config.properties
+src/main/resources/weather.user.config.properties
