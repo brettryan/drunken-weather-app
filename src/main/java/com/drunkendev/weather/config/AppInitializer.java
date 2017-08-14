@@ -35,7 +35,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new Class[]{
             RootConfig.class,
             DbConfig.class,
-            SecurityConfig.class
+            SecurityConfig.class,
+            WeatherConfig.class
         };
     }
 
