@@ -19,6 +19,5 @@ Once successfully started the following output will be produced.
 
     [INFO] Started Jetty Server
 
-
-[[https://raw.githubusercontent.com/brettryan/drunken-weather-app/master/doc/images/up-and-running.png]]
+![Up and Running](https://raw.githubusercontent.com/brettryan/drunken-weather-app/master/doc/images/up-and-running.png)
 
