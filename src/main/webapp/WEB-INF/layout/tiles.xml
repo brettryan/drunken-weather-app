@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+  <!--
+  A common layout for most using a generic
+  -->
+  <definition name="base.layout" template="/WEB-INF/layout/base.jsp">
+    <!-- Set to a non-empty string in a template to show the bootstrap helper classes while developing views -->
+    <put-attribute name="debugView" cascade="true" value=""/>
+    <put-list-attribute name="head" cascade="true">
+      <add-attribute value="/WEB-INF/layout/default/head.jsp" />
+    </put-list-attribute>
+    <!-- Yet to figure out a way to enable/disable min sheets effectively. -->
+    <put-list-attribute name="stylesheets" cascade="true">
+      <add-attribute value="/static/css/bootstrap.css"/>
+      <add-attribute value="/static/css/common.css"/>
+    </put-list-attribute>
+    <put-list-attribute name="body-end" cascade="true" inherit="true">
+      <add-attribute value="/WEB-INF/layout/default/body-end.jsp" />
+    </put-list-attribute>
+    <put-attribute name="menu" value="/WEB-INF/layout/default/menu.jsp" cascade="true"/>
+    <put-attribute name="menu-primary" value="/WEB-INF/layout/default/menu-primary.jsp" cascade="true" />
+    <put-attribute name="menu-secondary" value="/WEB-INF/layout/default/menu-secondary.jsp" cascade="true" />
+    <put-attribute name="footer" value="/WEB-INF/layout/default/footer.jsp" cascade="true"/>
+    <put-attribute name="title" cascade="true" value="site.title"/>
+    <put-list-attribute name="main" cascade="true">
+      <add-attribute value="/WEB-INF/layout/default/main.jsp" />
+    </put-list-attribute>
+  </definition>
+
+  <definition name="default.layout" extends="base.layout">
+    <put-list-attribute name="stylesheets" cascade="true" inherit="true">
+      <add-attribute value="/static/css/bootstrap-theme.css"/>
+      <add-attribute value="/static/css/main.css"/>
+    </put-list-attribute>
+  </definition>
+
+</tiles-definitions>

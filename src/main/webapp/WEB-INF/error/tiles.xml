@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+  <definition name="error/403" extends="default.layout">
+    <put-attribute name="title" cascade="true" value="Spring Starter - Access Denied" />
+    <put-attribute name="heading" cascade="true" value="Access Denied" />
+    <put-list-attribute name="body" cascade="true">
+      <add-attribute value="/WEB-INF/error/403.jsp" />
+    </put-list-attribute>
+  </definition>
+
+  <definition name="error/404" extends="default.layout">
+    <put-attribute name="title" cascade="true" value="Spring Starter - Resource Not Found" />
+    <put-attribute name="heading" cascade="true" value="Resource Not Found" />
+    <put-list-attribute name="body" cascade="true">
+      <add-attribute value="/WEB-INF/error/404.jsp" />
+    </put-list-attribute>
+  </definition>
+
+  <definition name="error/500" extends="default.layout">
+    <put-attribute name="title" cascade="true" value="Spring Starter - Internal Error" />
+    <put-attribute name="heading" cascade="true" value="Internal Error" />
+    <put-list-attribute name="body" cascade="true">
+      <add-attribute value="/WEB-INF/error/500.jsp" />
+    </put-list-attribute>
+  </definition>
+
+  <definition name="throwable" extends="default.layout">
+    <put-attribute name="title" cascade="true" value="Spring Starter - Unhandled Error"/>
+    <put-attribute name="heading" cascade="true" value="Unhandled Error" />
+    <put-list-attribute name="body" cascade="true">
+      <add-attribute value="/WEB-INF/error/throwable.jsp" />
+    </put-list-attribute>
+  </definition>
+
+</tiles-definitions>

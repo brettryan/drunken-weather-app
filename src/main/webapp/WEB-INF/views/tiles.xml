@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+  <definition name="home" extends="default.layout">
+    <put-list-attribute name="body" inherit="true" cascade="true">
+      <add-attribute value="/WEB-INF/views/home.jsp" />
+    </put-list-attribute>
+  </definition>
+
+  <definition name="login" extends="default.layout">
+    <put-list-attribute name="body" inherit="true" cascade="true">
+      <add-attribute value="/WEB-INF/views/login.jsp" />
+    </put-list-attribute>
+  </definition>
+
+  <definition name="aboutme" extends="default.layout">
+    <put-attribute name="heading" value="aboutme.label" cascade="true"/>
+    <put-list-attribute name="body" inherit="true" cascade="true">
+      <add-attribute value="/WEB-INF/views/aboutme.jsp" />
+    </put-list-attribute>
+  </definition>
+
+</tiles-definitions>

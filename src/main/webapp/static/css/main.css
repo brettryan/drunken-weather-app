@@ -1,0 +1,103 @@
+
+body {
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  /*height: 60px;*/
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px auto;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+footer.footer {
+  text-align: center;
+}
+
+
+/* Turn list-groups into tables. */
+
+.list-group-table-heading {
+  border:none;
+  font-weight:bold;
+}
+
+.lighter {
+  font-weight: lighter;
+}
+
+
+
+/*@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url('http://themes.googleusercontent.com/static/fonts/opensans/v5/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff') format('woff');
+}*/
+
+.breadcrumb {
+  background-color: inherit;
+}
+
+
+.nav .breadcrumb {
+  /*margin: 7px 10px;*/
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 767px) {
+  .nav .container.bc {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.dd-article-title {
+  margin: 15px 0;
+}
+
+.navbar-header .navbar-toggle {
+  margin-bottom: 6px;
+  margin-top: 6px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
