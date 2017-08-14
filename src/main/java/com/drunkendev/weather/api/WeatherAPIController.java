@@ -20,6 +20,7 @@ package com.drunkendev.weather.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -44,9 +45,11 @@ public class WeatherAPIController {
      * @param   cityId
      *          City ID
      * @return  Current conditions.
+     * @throws  WeatherException
+     *          If the underlying implementation failed to query.
      */
     @RequestMapping("/api/v1/weather")
-    public WeatherCondition getCurrentConditions(long cityId) {
+    public WeatherCondition getCurrentConditions(@RequestParam("cityId") long cityId) throws WeatherException {
         return weatherService.getCurrentConditions(cityId);
     }
 
