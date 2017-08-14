@@ -19,6 +19,8 @@
 package com.drunkendev.weather.config;
 
 import com.drunkendev.weather.api.WeatherService;
+import com.drunkendev.weather.api.openweathermap.OpenWeatherMapWeatherService;
+import com.drunkendev.web.settings.AppConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,33 +32,21 @@ import org.springframework.core.env.Environment;
 
 
 /**
+ * Configuration for weather module provided by application.
  *
  * @author  Brett Ryan
  */
 @Configuration
-@PropertySources({
-    @PropertySource(ignoreResourceNotFound = true, value = "classpath:weather.config.properties"),
-    @PropertySource(ignoreResourceNotFound = true, value = "classpath:weather.user.config.properties"),
-    @PropertySource(ignoreResourceNotFound = true, value = "file:///${weather.config}")
-})
 public class WeatherConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(RootConfig.class);
 
-    private final Environment env;
-
-    @Autowired
-    public WeatherConfig(Environment env) {
-        this.env = env;
-    }
-
-    @Bean
-    public WeatherService weatherService() throws ClassNotFoundException,
-                                                  InstantiationException,
-                                                  IllegalAccessException {
-        String implClass = env.getProperty("weather.api.impl");
-        LOG.debug("Using configured weather service {}", implClass);
-        return (WeatherService) Class.forName(implClass).newInstance();
+    @Bean()
+    public WeatherService weatherService(AppConfig conf) throws ClassNotFoundException,
+                                                                InstantiationException,
+                                                                IllegalAccessException {
+        return new OpenWeatherMapWeatherService(conf.getString("weather.api.owm.appid"),
+                                                conf.getString("weather.api.owm.base"));
     }
 
 }
