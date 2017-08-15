@@ -26,3 +26,4 @@ target/
 src/main/webapp/META-INF/context.xml
 src/main/resources/logback-test.xml
 src/main/resources/weather.user.config.properties
+/nbproject/
