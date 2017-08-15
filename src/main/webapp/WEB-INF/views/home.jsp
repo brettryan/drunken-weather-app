@@ -30,7 +30,7 @@
     </div>
     <div class="row">
       <div class="col-xs-5">Wind</div>
-      <div class="col-xs-7" data-bind="text: selectedConditions() && selectedConditions().windSpeed + ' kph'"></div>
+      <div class="col-xs-7" data-bind="text: selectedConditions() && selectedConditions().windSpeed + ' kph from the ' + selectedConditions().windDirection"></div>
     </div>
   </div>
 </div>

@@ -113,8 +113,8 @@ public class OpenWeatherMapWeatherService implements WeatherService {
                     LocalDateTime.ofInstant(Instant.ofEpochSecond(body.getDt()), ZoneId.systemDefault()),
                     body.getMain().getTemp(),
                     body.getWeather().get(0).getMain(),
-                    body.getWind().getSpeed(),
-                    "N"
+                    body.getWind().getSpeed() * 3.6,
+                    meteorologicalDegreesToCardinal(body.getWind().getDeg())
             );
         } catch (HttpClientErrorException ex) {
             String msg;
@@ -159,7 +159,9 @@ public class OpenWeatherMapWeatherService implements WeatherService {
      * @return  Cardinal direction.
      */
     private static String meteorologicalDegreesToCardinal(double degrees) {
-        return null;
+        int f = (CARDINAL_UNITS.length * (int) degrees / 180 / 2);
+        LOG.info("Converting {} degrees to {} cardinal.", degrees, f);
+        return f < 0 || f >= CARDINAL_UNITS.length ? CARDINAL_UNITS[0] : CARDINAL_UNITS[f];
     }
 
 }
