@@ -21,9 +21,12 @@ package com.drunkendev.weather.api.openweathermap;
 import com.drunkendev.weather.api.WeatherCondition;
 import com.drunkendev.weather.api.WeatherException;
 import com.drunkendev.weather.api.WeatherService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -44,6 +47,7 @@ public class OpenWeatherMapWeatherService implements WeatherService {
 
     private final String appId;
     private final String baseUri;
+    private ObjectMapper om;
 
     public OpenWeatherMapWeatherService(String appId,
                                         String baseUri) {
@@ -56,6 +60,11 @@ public class OpenWeatherMapWeatherService implements WeatherService {
         this.baseUri = baseUri;
     }
 
+    @Autowired
+    public void setObjectMapper(ObjectMapper om) {
+        this.om = om;
+    }
+
     @Override
     public WeatherCondition getCurrentConditions(long cityId) throws WeatherException {
         RestTemplate restTemplate = new RestTemplate();
@@ -64,7 +73,7 @@ public class OpenWeatherMapWeatherService implements WeatherService {
                 .fromHttpUrl(baseUri)
                 .path("/weather")
                 .queryParam("appid", appId)
-                .queryParam("id", cityId)
+                .queryParam("idd", cityId)
                 .queryParam("units", "metric");
 
         String queryString = query.build().encode().toString();
@@ -88,8 +97,19 @@ public class OpenWeatherMapWeatherService implements WeatherService {
                     "N"
             );
         } catch (HttpClientErrorException ex) {
-            LOG.error("Couldn't get weather information: {}", ex.getMessage(), ex);
-            throw new WeatherException(ex.getMessage());
+            String msg;
+            if (om == null) {
+                msg = ex.getResponseBodyAsString();
+            } else {
+                try {
+                    OWMError err = om.readValue(ex.getResponseBodyAsString(), OWMError.class);
+                    msg = err.getMessage();
+                } catch (IOException ex1) {
+                    msg = ex.getResponseBodyAsString();
+                }
+            }
+            LOG.error("Couldn't get weather information: {}", msg, ex);
+            throw new WeatherException(msg);
         }
     }
 
