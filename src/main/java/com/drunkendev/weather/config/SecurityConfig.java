@@ -70,8 +70,7 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/static").permitAll()
+                    .antMatchers("/", "/static/**", "/error/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
