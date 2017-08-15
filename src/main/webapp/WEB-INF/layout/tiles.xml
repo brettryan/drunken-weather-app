@@ -18,6 +18,7 @@
     <put-list-attribute name="stylesheets" cascade="true">
       <add-attribute value="/static/css/bootstrap.css"/>
       <add-attribute value="/static/css/common.css"/>
+      <add-attribute value="/static/font-awesome/css/font-awesome.min.css"/>
     </put-list-attribute>
     <put-list-attribute name="body-end" cascade="true" inherit="true">
       <add-attribute value="/WEB-INF/layout/default/body-end.jsp" />
