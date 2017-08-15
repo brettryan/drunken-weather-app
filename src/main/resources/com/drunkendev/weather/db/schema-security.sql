@@ -1,4 +1,12 @@
 
+drop table if exists users;
+drop table if exists authorities;
+drop table if exists groups;
+drop table if exists group_authorities;
+drop table if exists group_members;
+drop table if exists persistent_logins;
+
+
 create table if not exists users (
     username varchar_ignorecase(64) not null primary key,
     password varchar_ignorecase(64) not null,
