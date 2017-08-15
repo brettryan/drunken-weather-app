@@ -16,7 +16,7 @@ the following to your `weather.user.config.properties` file replacing the app id
 with the one you have obtained.
 
 ```properties
-weather.api.owm.appid=76b1302fb5c7ce6ad1382ccb17d6703c
+weather.api.owm.appid=00000000000000000000000000000000
 ```
 
 ## Running
