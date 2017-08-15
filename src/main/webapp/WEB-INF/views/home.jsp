@@ -18,7 +18,7 @@
     </div>
     <div class="row">
       <div class="col-xs-5">Updated</div>
-      <div class="col-xs-7" data-bind="text: selectedConditions() && selectedConditions().updated"></div>
+      <div class="col-xs-7" data-bind="text: selectedConditions() && moment(selectedConditions().updated).format('MMMM Do YYYY, h:mm a')"></div>
     </div>
     <div class="row">
       <div class="col-xs-5">Conditions</div>
