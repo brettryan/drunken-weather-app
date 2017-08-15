@@ -23,7 +23,9 @@ import com.drunkendev.weather.api.WeatherException;
 import com.drunkendev.weather.api.WeatherService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +75,7 @@ public class OpenWeatherMapWeatherService implements WeatherService {
                 .fromHttpUrl(baseUri)
                 .path("/weather")
                 .queryParam("appid", appId)
-                .queryParam("idd", cityId)
+                .queryParam("id", cityId)
                 .queryParam("units", "metric");
 
         String queryString = query.build().encode().toString();
@@ -90,10 +92,10 @@ public class OpenWeatherMapWeatherService implements WeatherService {
             }
 
             return new WeatherCondition(
-                    LocalDateTime.now(),
-                    0,
-                    body.getWeather().get(0).getDescription(),
-                    0.0,
+                    LocalDateTime.ofInstant(Instant.ofEpochSecond(body.getDt()), ZoneId.systemDefault()),
+                    body.getMain().getTemp(),
+                    body.getWeather().get(0).getMain(),
+                    body.getWind().getSpeed(),
                     "N"
             );
         } catch (HttpClientErrorException ex) {
@@ -111,6 +113,30 @@ public class OpenWeatherMapWeatherService implements WeatherService {
             LOG.error("Couldn't get weather information: {}", msg, ex);
             throw new WeatherException(msg);
         }
+    }
+
+    private static final String[] CARDINAL_UNITS = {
+        "North",
+        "North East",
+        "East",
+        "South East",
+        "South",
+        "South West",
+        "West",
+        "North West"
+    };
+
+    /**
+     * Convert meteorological degrees to a cardinal unit.
+     *
+     * TODO: Come up with formula for working wind direction.
+     *
+     * @param   degrees
+     *          degrees in meteorological units.
+     * @return  Cardinal direction.
+     */
+    private static String meteorologicalDegreesToCardinal(double degrees) {
+        return null;
     }
 
 }

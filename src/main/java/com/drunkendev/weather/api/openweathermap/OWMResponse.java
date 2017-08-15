@@ -31,11 +31,32 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class OWMResponse {
 
+    private final long dt;
+    private final OWMMain main;
+    private final OWMWind wind;
     private final List<OWMWeather> weather;
 
     @JsonCreator
-    public OWMResponse(@JsonProperty("weather") List<OWMWeather> weather) {
+    public OWMResponse(@JsonProperty("dt") long dt,
+                       @JsonProperty("main") OWMMain main,
+                       @JsonProperty("wind") OWMWind wind,
+                       @JsonProperty("weather") List<OWMWeather> weather) {
+        this.dt = dt;
+        this.main = main;
+        this.wind = wind;
         this.weather = weather;
+    }
+
+    public long getDt() {
+        return dt;
+    }
+
+    public OWMMain getMain() {
+        return main;
+    }
+
+    public OWMWind getWind() {
+        return wind;
     }
 
     public List<OWMWeather> getWeather() {
