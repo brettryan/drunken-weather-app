@@ -122,6 +122,8 @@ public class SecurityConfig {
                     //.csrf().disable() // Disable for all API calls.
                     .antMatcher("/api/**")
                     .authorizeRequests()
+                    .antMatchers("/api/v1/weather").permitAll()
+                    .antMatchers("/api/v1/cities").permitAll()
                     .antMatchers("/static").permitAll()
                     .anyRequest().authenticated()
                     .and()
