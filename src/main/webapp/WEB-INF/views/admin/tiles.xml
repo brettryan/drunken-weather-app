@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+  <definition name="admin.base" extends="default.layout">
+    <put-attribute name="menu-primary" cascade="true" value="/WEB-INF/views/admin/admin-menu.jsp"/>
+  </definition>
+
+  <definition name="admin/cities" extends="admin.base">
+    <put-attribute name="heading" value="City Administration" cascade="true" />
+    <put-list-attribute name="body" inherit="true" cascade="true">
+      <add-attribute value="/WEB-INF/views/admin/cities.jsp" />
+    </put-list-attribute>
+  </definition>
+
+</tiles-definitions>

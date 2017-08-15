@@ -18,6 +18,7 @@
 
 package com.drunkendev.weather.api;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +34,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherAPIController {
 
     private final WeatherService weatherService;
+    private final VendorCityService vendorCityService;
 
     @Autowired
-    public WeatherAPIController(WeatherService weatherService) {
+    public WeatherAPIController(WeatherService weatherService,
+                                VendorCityService vendorCityService) {
         this.weatherService = weatherService;
+        this.vendorCityService = vendorCityService;
     }
 
     /**
@@ -51,6 +55,11 @@ public class WeatherAPIController {
     @RequestMapping("/api/v1/weather")
     public WeatherCondition getCurrentConditions(@RequestParam("cityId") long cityId) throws WeatherException {
         return weatherService.getCurrentConditions(cityId);
+    }
+
+    @RequestMapping("/api/v1/cities")
+    public List<VendorCity> getCities() {
+        return weatherService.getCities();
     }
 
 }

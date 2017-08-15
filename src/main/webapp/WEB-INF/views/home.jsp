@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-xs-5">City</div>
       <div class="col-xs-7">
-        <select class="input" data-bind="options: cities, optionsText: 'displayName', value: selectedCity"></select>
+        <select class="input" data-bind="options: cities, optionsText: 'cityName', value: selectedCity"></select>
       </div>
     </div>
     <div class="row">
@@ -36,30 +36,23 @@
 </div>
 <script>
   $(function () {
-    function WeatherChannel (code, displayName, cityId) {
-      var self = this;
-      self.code = code;
-      self.displayName = displayName;
-      self.cityId = cityId;
-    }
-
     function ViewModel () {
       var self = this;
       self.city = ko.observable();
-      self.cities = ko.observableArray([
-        new WeatherChannel("MEL", "Melbourne", 7839805),
-        new WeatherChannel("SYD", "Sydney", 2147714),
-        new WeatherChannel("SYD", "Wollongong", 7839791)
-      ]);
+      self.cities = ko.observableArray();
 
       self.selectedCity = ko.observable();
       self.selectedConditions = ko.observable();
 
       ko.computed(function () {
         if (self.selectedCity()) {
-          var args = {cityId: self.selectedCity().cityId};
+          var args = {cityId: self.selectedCity().id};
           $.getJSON('<c:url value="/api/v1/weather"/>', args, self.selectedConditions);
         }
+      });
+
+      ko.computed(function() {
+        $.getJSON('<c:url value="/api/v1/cities"/>', self.cities);
       });
     }
 

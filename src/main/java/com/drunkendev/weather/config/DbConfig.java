@@ -69,7 +69,7 @@ public class DbConfig {
         ResourceDatabasePopulator pop = new ResourceDatabasePopulator();
         pop.setContinueOnError(true);
         pop.addScript(schemaSecurity);
-        //pop.addScript(schemaApp);
+        pop.addScript(schemaApp);
         //pop.addScript(dataScript);
         init.setDatabasePopulator(pop);
         init.setEnabled(env.getProperty("db.init", Boolean.class));

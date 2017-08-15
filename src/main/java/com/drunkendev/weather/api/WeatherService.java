@@ -18,6 +18,9 @@
 
 package com.drunkendev.weather.api;
 
+import java.util.List;
+
+
 
 /**
  * Abstracts vendor weather API's into a common API.
@@ -37,5 +40,21 @@ public interface WeatherService {
      *          request.
      */
     WeatherCondition getCurrentConditions(long cityId) throws WeatherException;
+
+    /**
+     * Vendor code used to identify the vendor implementation.
+     *
+     * <p><strong>NOTE</strong> An upper limit of 500 characters is placed on
+     * the vendor code.</p>
+     *
+     * <p>Default implementation is to return the class name.</p>
+     *
+     * @return  Vendor code to store cities for.
+     */
+    default String getVendorCode() {
+        return this.getClass().getName();
+    }
+
+    List<VendorCity> getCities();
 
 }

@@ -9,19 +9,31 @@
 
 <form:form action="${pageContext.request.contextPath}/logout" method="POST" id="frm-logout">
   <ul class="nav navbar-nav navbar-right">
-    <tiles:importAttribute name="secondaryMenu" ignore="true" />
+    <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+      <li class="dropdown ${currentPath eq '/admin' ? 'active' : ' '}">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <i class="fa fa-cog fa-fw"></i>&nbsp; <span class=""> Admin</span>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="<c:url value="/admin/cities"/>">Cities</a></li>
+        </ul>
+      </li>
+    </sec:authorize>
+
     <sec:authorize access="!isAuthenticated()">
       <li>
-        <a href="<c:url value="/login"/>"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-          <span class=""> &nbsp; Log In</span>
+        <a href="<c:url value="/login"/>">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          <span class=""> &nbsp; Sign In</span>
         </a>
       </li>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
       <li>
         <a href="#" onclick="document.getElementById('frm-logout').submit();">
-          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-          <span class=""> &nbsp; Log Out</span>
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+          <span class=""> &nbsp; Sign Out</span>
         </a>
       </li>
     </sec:authorize>

@@ -19,6 +19,7 @@
 package com.drunkendev.weather.api;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /**
@@ -31,6 +32,11 @@ public class DummyWeatherService implements WeatherService {
     @Override
     public WeatherCondition getCurrentConditions(long cityId) throws WeatherException {
         return new WeatherCondition(LocalDateTime.now(), 0, "Not yet known", 0, null);
+    }
+
+    @Override
+    public List<VendorCity> getCities() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

@@ -18,6 +18,8 @@
 
 package com.drunkendev.weather.api.openweathermap;
 
+import com.drunkendev.weather.api.VendorCity;
+import com.drunkendev.weather.api.VendorCityService;
 import com.drunkendev.weather.api.WeatherCondition;
 import com.drunkendev.weather.api.WeatherException;
 import com.drunkendev.weather.api.WeatherService;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 
@@ -50,6 +54,7 @@ public class OpenWeatherMapWeatherService implements WeatherService {
     private final String appId;
     private final String baseUri;
     private ObjectMapper om;
+    private VendorCityService vendorCityService;
 
     public OpenWeatherMapWeatherService(String appId,
                                         String baseUri) {
@@ -67,15 +72,28 @@ public class OpenWeatherMapWeatherService implements WeatherService {
         this.om = om;
     }
 
+    @Autowired
+    public void setVendorCityService(VendorCityService vendorCityService) {
+        this.vendorCityService = vendorCityService;
+    }
+
     @Override
     public WeatherCondition getCurrentConditions(long cityId) throws WeatherException {
+        VendorCity city = vendorCityService.getCity(cityId);
+        if (city == null) {
+            throw new WeatherException("City does not exist.");
+        }
+        if (!equalsIgnoreCase(city.getVendorCode(), getVendorCode())) {
+            throw new WeatherException("Configured weather implementation vendor code does not match.");
+        }
+
         RestTemplate restTemplate = new RestTemplate();
 
         UriComponentsBuilder query = UriComponentsBuilder
                 .fromHttpUrl(baseUri)
                 .path("/weather")
                 .queryParam("appid", appId)
-                .queryParam("id", cityId)
+                .queryParam("id", Integer.parseInt(city.getLookupCode()))
                 .queryParam("units", "metric");
 
         String queryString = query.build().encode().toString();
@@ -113,6 +131,11 @@ public class OpenWeatherMapWeatherService implements WeatherService {
             LOG.error("Couldn't get weather information: {}", msg, ex);
             throw new WeatherException(msg);
         }
+    }
+
+    @Override
+    public List<VendorCity> getCities() {
+        return vendorCityService.getCities(getVendorCode());
     }
 
     private static final String[] CARDINAL_UNITS = {
