@@ -77,6 +77,16 @@ public class OpenWeatherMapWeatherService implements WeatherService {
         this.vendorCityService = vendorCityService;
     }
 
+    /**
+     * Retrieves current weather conditions from OpenWeatherMap.
+     *
+     * @param   cityId
+     *          Internal city ID.
+     * @return  Weather condition for given city.
+     * @throws  WeatherException
+     *          If city does not exist, vendor code not supported by this
+     *          implementation or an API exception occurred at the source API.
+     */
     @Override
     public WeatherCondition getCurrentConditions(long cityId) throws WeatherException {
         VendorCity city = vendorCityService.getCity(cityId);
@@ -138,6 +148,9 @@ public class OpenWeatherMapWeatherService implements WeatherService {
         return vendorCityService.getCities(getVendorCode());
     }
 
+    /**
+     * Provides cardinal directions indexed in meteorological degree order.
+     */
     private static final String[] CARDINAL_UNITS = {
         "North",
         "North East",
@@ -152,16 +165,13 @@ public class OpenWeatherMapWeatherService implements WeatherService {
     /**
      * Convert meteorological degrees to a cardinal unit.
      *
-     * TODO: Come up with formula for working wind direction.
-     *
      * @param   degrees
      *          degrees in meteorological units.
      * @return  Cardinal direction.
      */
-    private static String meteorologicalDegreesToCardinal(double degrees) {
-        int f = (CARDINAL_UNITS.length * (int) degrees / 180 / 2);
-        LOG.info("Converting {} degrees to {} cardinal.", degrees, f);
-        return f < 0 || f >= CARDINAL_UNITS.length ? CARDINAL_UNITS[0] : CARDINAL_UNITS[f];
+    public static String meteorologicalDegreesToCardinal(double degrees) {
+        int x = (int) ((CARDINAL_UNITS.length * degrees) + 180) / 360;
+        return x < 0 || x >= CARDINAL_UNITS.length ? CARDINAL_UNITS[0] : CARDINAL_UNITS[x];
     }
 
 }
